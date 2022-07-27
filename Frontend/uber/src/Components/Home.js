@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {ethers} from 'ethers';
 import Header from '../Anonymous/Header';
 import Error from './Error';
+import Ahome from '../Anonymous/Ahome';
 
 export default function Home() {
 
@@ -43,8 +44,7 @@ export default function Home() {
     <>
     <Header/>
     {error!==''?(<Error error={error}/>):(<></>)}
-    <p>Address: {address}</p>
-    <p>Balance: {balance}</p>
+    <Ahome/>
     </>
   )
 }

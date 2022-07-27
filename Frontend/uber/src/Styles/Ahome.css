@@ -1,0 +1,94 @@
+.main {
+    position: absolute;
+    left: 20%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    width: 30vw;
+    height: 50vh;
+    background-color: rgb(247, 247, 247);
+    z-index: 1000;
+}
+
+.notifi {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 240px;
+    background-color: rgb(247, 247, 247);
+}
+
+.writes {
+    height: 190px;
+    width: 65%;
+    text-decoration: none;
+}
+
+a {
+    color: gray;
+}
+
+.body {
+    height: 68.8vh;
+}
+
+.img {
+    height: 68.8vh;
+    width: 100vw;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 29vw;
+    height: 100px;
+    background-color: rgb(238, 233, 233);
+}
+
+.rider {
+    height: inherit;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.driver {
+    height: inherit;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sub-body {
+    width: 29vw;
+    height: 350px;
+}
+
+.inputs {
+    width: 28vw;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+input {
+    background-color: rgb(247, 247, 247);
+    width: 20vw;
+    border: 0!important;
+    border-color: rgb(249, 247, 247);
+}
+
+.footer {
+    width: 29vw;
+    height: 90px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
