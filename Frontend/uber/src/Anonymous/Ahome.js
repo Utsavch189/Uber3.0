@@ -2,38 +2,16 @@ import React,{useState} from 'react';
 import '../Styles/Ahome.css';
 import RideBody from '../Rider/AhomeBody';
 import DriveBody from '../Driver/AHomeBody';
+import UberTop from './UberTop';
 
-export default function Ahome() {
+export default function Ahome({error}) {
 
   const[is_driver,setIs_driver]=useState(false)
 
   return (
     <>
         <section style={{ height: "100%", width: "100%" ,overflow:"hidden"}}>
-    <div className="container-fluid notifi">
-      <div className="writes">
-        <p>
-          <strong> Helping to keep each other safe</strong>
-        </p>
-        <p>
-          We are actively monitoring the COVID-19 situation and are continually
-          working to help keep those who rely on our platform healthy and safe.
-        </p>
-        <br />
-        <p>
-          <a href="">Go to Uber`s COVID-19 hub</a>
-        </p>
-        <br />
-        <p>
-          <a href="">Read about our Door-to-Door Safety Standard</a>
-        </p>
-      </div>
-      <div className="cross">
-        <button>
-          <i className="fa fa-close" style={{ fontSize: 18 }} />
-        </button>
-      </div>
-    </div>
+    <UberTop error={error}/>
     <div className="container-fluid body">
       { !is_driver ? (
       <img
@@ -53,8 +31,8 @@ export default function Ahome() {
           <div className="rider">
             <button onClick={()=>setIs_driver(false)}>
               <i
-                className="fa fa-car"
-                style={{ fontSize: 30 }}
+                className="fa fa-taxi"
+                style={{ fontSize: 20 }}
                 aria-hidden="true"
               />
             </button>
@@ -65,8 +43,8 @@ export default function Ahome() {
           <div className="driver">
             <button onClick={()=>setIs_driver(true)}>
               <i
-                className="fa fa-car"
-                style={{ fontSize: 30 }}
+                className="	fa fa-vcard"
+                style={{ fontSize: 20 }}
                 aria-hidden="true"
               />
             </button>

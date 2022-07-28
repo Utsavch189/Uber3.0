@@ -43,8 +43,8 @@ export default function Home() {
   return (
     <>
     <Header/>
-    {error!==''?(<Error error={error}/>):(<></>)}
-    <Ahome/>
+    
+    <Ahome error={error}/>
     </>
   )
 }

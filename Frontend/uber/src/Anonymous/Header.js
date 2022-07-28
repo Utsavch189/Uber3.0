@@ -4,18 +4,22 @@ export default function Header() {
   return (
     <>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between">
-  <div class="container-fluid " >
+<nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
+  <div className="container-fluid ">
     <div>
-    <a class="navbar-brand" href="#">Uber 3.0</a>
-</div>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+      <a className="navbar-brand" href="#">Uber 3.0</a>
+    </div>
+    <div className="collapse navbar-collapse" id="navbarNav">
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-
-
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href="#">Login</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href="#">Sign Up</a>
+        </li>
       </ul>
     </div>
   </div>
