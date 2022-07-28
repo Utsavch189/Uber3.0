@@ -1,10 +1,15 @@
-import React from 'react';
+import React,{useState} from 'react';
 import '../Styles/Ahome.css';
+import RideBody from '../Rider/AhomeBody';
+import DriveBody from '../Driver/AHomeBody';
 
 export default function Ahome() {
+
+  const[is_driver,setIs_driver]=useState(false)
+
   return (
     <>
-        <section style={{ height: "100vh", width: "100vw" }}>
+        <section style={{ height: "100%", width: "100%" ,overflow:"hidden"}}>
     <div className="container-fluid notifi">
       <div className="writes">
         <p>
@@ -30,15 +35,23 @@ export default function Ahome() {
       </div>
     </div>
     <div className="container-fluid body">
+      { !is_driver ? (
       <img
+        src="https://images.indianexpress.com/2017/03/uber-759.jpg"
+        alt=""
+        className="img"
+      />):(
+        <img
         src="https://image.cnbcfm.com/api/v1/image/105887924-1556798450906gettyimages-1137478527.jpeg?v=1596730014"
         alt=""
         className="img"
       />
+      )
+}
       <div className="container main">
         <div className="options">
           <div className="rider">
-            <button>
+            <button onClick={()=>setIs_driver(false)}>
               <i
                 className="fa fa-car"
                 style={{ fontSize: 30 }}
@@ -46,10 +59,11 @@ export default function Ahome() {
               />
             </button>
             <br />
-            <h5>Rider</h5>
+            {!is_driver ?(<h5><strong>Rider</strong></h5>):(<h5>Rider</h5>)}
+            
           </div>
           <div className="driver">
-            <button>
+            <button onClick={()=>setIs_driver(true)}>
               <i
                 className="fa fa-car"
                 style={{ fontSize: 30 }}
@@ -57,33 +71,16 @@ export default function Ahome() {
               />
             </button>
             <br />
-            <h5>Driver</h5>
+            {is_driver ?(<h5><strong>Driver</strong></h5>):(<h5>Driver</h5>)}
+            
           </div>
         </div>
-        <div className="sub-body my-1">
-          <h2 className="text-center">Request a ride now!</h2>
-          <br />
-          <div className="inputs">
-            <div classname="form-group">
-              <input
-                type="text"
-                classname="form-control"
-                placeholder="Enter Pickup Location"
-              />
-            </div>
-            <div classname="form-group ">
-              <input
-                type="text"
-                classname="form-control"
-                placeholder="Enter Destination"
-              />
-            </div>
-          </div>
-          <div className="footer">
-            <button className="btn btn-dark">Request Now</button>
-            <button className="btn btn-primary">Shedule for later</button>
-          </div>
-        </div>
+        
+
+{!is_driver ? (<RideBody/>):(<DriveBody/>)}
+
+
+
       </div>
     </div>
   </section>

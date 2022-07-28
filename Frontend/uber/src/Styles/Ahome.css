@@ -92,3 +92,11 @@ input {
     justify-content: space-around;
     align-items: center;
 }
+
+.footer2 {
+    width: 29vw;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    margin-left: 32px;
+}
