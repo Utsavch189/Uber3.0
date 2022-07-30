@@ -12,14 +12,14 @@ export default function RideBody() {
             <div classname="form-group">
               <input
                 type="text"
-                classname="form-control"
+                classname="form-control input"
                 placeholder="Enter Pickup Location"
               />
             </div>
             <div classname="form-group ">
               <input
                 type="text"
-                classname="form-control"
+                classname="form-control input"
                 placeholder="Enter Destination"
               />
             </div>
