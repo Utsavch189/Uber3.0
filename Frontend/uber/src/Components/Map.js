@@ -140,7 +140,8 @@ export default function Map() {
       )
       }
     </div>
-    <h6 className="text-center my-4">Nearby Services</h6>
+    {!response?(
+    <h6 className="text-center my-4">Nearby Services</h6>):(<></>)}
   </div>
   <div className="container-fluid car-list">
     <div className="container-fluid my-3 cars" >
