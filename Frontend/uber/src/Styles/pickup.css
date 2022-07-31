@@ -1,0 +1,29 @@
+.pickup {
+    position: absolute;
+    left: 20%;
+    top: 56%;
+    transform: translate(-50%, -50%);
+    width: 22vw;
+    height: 74vh;
+    background-color: rgb(247, 247, 247);
+    z-index: 1000;
+}
+
+.inputss {
+    height: 220px;
+}
+
+.car-list {
+    height: 390px;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+}
+
+.cars {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+    background-color: rgb(223, 222, 222);
+    font-size: 14px;
+}

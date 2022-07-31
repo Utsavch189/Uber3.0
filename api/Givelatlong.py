@@ -25,5 +25,3 @@ class Coord:
         
         return lat1,lon1,lat2,lon2
         
-a=Coord('Hooghly,West Bengal')
-print(a.get())
