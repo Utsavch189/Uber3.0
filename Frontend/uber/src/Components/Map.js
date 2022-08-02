@@ -51,30 +51,67 @@ export default function Map() {
         setStartLon(data[0].fromlon);
         setEndLat(data[0].tolat);
         setEndLon(data[0].tolon);
+        setDistance(data[0].distance);
+
+        
+
        
-
-        const dist=Math.sqrt(Math.pow((endLat-startLat),2)+Math.pow((endLon-startLon),2))
-        setDistance(dist);
-        console.log(dist)
-
-        const map = new mapboxgl.Map({
-          container: 'map',
-          style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
-          center: [startLon, startLat],
-          zoom: 12,
-        })
-        const marker1 = new mapboxgl.Marker()
-        .setLngLat([startLon, startLat])
-        .addTo(map);
-     
-        const marker2 = new mapboxgl.Marker()
-        .setLngLat([endLon, endLat])
-        .addTo(map);
-
         setResponse(false)
       })
   }
   }
+
+if(startLat!==null && endLat!==null){
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
+    center: [startLon, startLat],
+    zoom: 12,
+  })
+  const marker1 = new mapboxgl.Marker({color:"black"})
+  .setLngLat([startLon, startLat])
+  .addTo(map);
+
+  const marker2 = new mapboxgl.Marker({color:"black"})
+  .setLngLat([endLon, endLat])
+  .addTo(map);
+
+  map.on('load', function () {
+
+    map.addLayer({
+        "id": "route",
+        "type": "line",
+
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                      [startLon,startLat],
+                      [endLon, endLat]
+                        
+                    ]
+                }
+            }
+        }
+    });
+
+});
+
+const dlat=(startLat+endLat)/2;
+const dlon=(startLon+endLon)/2;
+
+const popup = new mapboxgl.Popup({ closeOnClick: false })
+.setLngLat([dlon,dlat])
+.setHTML(`<h6>${distance}km</h6>`)
+.addTo(map);
+
+}
+
+
 
   const allow=()=>{
     navigator.geolocation.getCurrentPosition(data => {

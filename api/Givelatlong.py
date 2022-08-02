@@ -1,7 +1,7 @@
 from matplotlib.pyplot import cla
 import requests
 import urllib.parse
-
+import geopy.distance
 
 
 
@@ -22,6 +22,10 @@ class Coord:
         response2 = requests.get(url2).json()
         lat2=float(response2[0]["lat"])
         lon2=float(response2[0]["lon"])
+
+        c1=(lat1,lon1)
+        c2=(lat2,lon2)
+        res=geopy.distance.geodesic(c1,c2).km
         
-        return lat1,lon1,lat2,lon2
+        return lat1,lon1,lat2,lon2,res
         

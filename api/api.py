@@ -29,17 +29,10 @@ async def give(request:Request):
         {"fromlat":obj.get()[0],
         "fromlon":obj.get()[1],
         "tolat":obj.get()[2],
-        "tolon":obj.get()[3]
+        "tolon":obj.get()[3],
+        "distance":obj.get()[4]
         }
     ]
     
    
     return dictt
-
-@app.get("/get")
-def get():
-    r=[{
-        "id":1
-    }]
-   
-    return r
