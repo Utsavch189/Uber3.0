@@ -112,7 +112,56 @@ export default function Map() {
   
 
   return (<>
-<div style={{"width":"100vw","height":"100vh"}} id='map' >
+  {window.screen.width<=540 ?(<>
+<section style={{"overflow":"hidden","display":"block","height":"100vh"}}>
+    <div  id='map' className='map' >
+
+  </div>
+  <div className="container pickup">
+  <div className="container-fluid inputss my-3">
+    {
+      response?(<div class="spinner-grow" role="status">
+      
+    </div>):(<></>)
+    }
+    <div classname="form-group">
+      <input type="text" className="form-control input" placeholder="Enter Pickup Location" value={fromDest} onChange={(e)=>setFromDest(e.target.value)}/>
+    </div>
+    <div classname="form-group my-3">
+      <input type="text" className="form-control input my-2" placeholder="Enter Final Location" value={toDest} onChange={(e)=>setToDest(e.target.value)}/>
+    </div>
+    <div className="container-fluid my-2" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
+      <button className="btn btn-dark" onClick={jump}>Jump to Destination <i className="	fa fa-send-o" /></button>
+    </div>
+    <div className="container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
+      {!location ? (
+      <button className="btn btn-dark" onClick={allow}>Allow Your Location <i className="fas fa-location mx-4" /></button>
+      ):(
+        <button className="btn btn-dark">Search Nearby Services<i className="fa fa-eye mx-4" /></button>
+      )
+      }
+    </div>
+    {!response?(
+    <h6 className="text-center my-4">Nearby Services</h6>):(<></>)}
+  </div>
+  <div className="container-fluid car-list">
+    <div className="container-fluid my-3 cars" >
+      <div className="left">
+        <p>UberX</p>
+      </div>
+      <div className="right">
+        <p>300rs</p>
+      </div>
+    </div>
+    <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center","position":"absolute","bottom":"0"}}>
+    <button className="btn btn-dark" style={{"marginRight":"35px"}}>Book<i className="fa fa-taxi mx-4" /></button>
+  </div>
+  </div>
+  
+</div>
+</section>
+  </>):(<>
+    <div  id='map' className='map' >
 
 
 
@@ -152,14 +201,17 @@ export default function Map() {
         <p>300rs</p>
       </div>
     </div>
+    <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center","position":"absolute","bottom":"0"}}>
+    <button className="btn btn-dark" style={{"marginRight":"35px"}}>Book<i className="fa fa-taxi mx-4" /></button>
   </div>
-  <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
-    <button className="btn btn-dark">Book<i className="fa fa-taxi mx-4" /></button>
   </div>
+  
 </div>
 
 
   </div>
+  </>)}
+
 </>
   )
 }
