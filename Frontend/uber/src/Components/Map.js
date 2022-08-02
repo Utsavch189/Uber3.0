@@ -106,7 +106,7 @@ const dlon=(startLon+endLon)/2;
 
 const popup = new mapboxgl.Popup({ closeOnClick: false })
 .setLngLat([dlon,dlat])
-.setHTML(`<h6>${distance}km</h6>`)
+.setHTML(`<h6>${distance} km</h6>`)
 .addTo(map);
 
 }
@@ -150,7 +150,7 @@ const popup = new mapboxgl.Popup({ closeOnClick: false })
 
   return (<>
   {window.screen.width<=540 ?(<>
-<section style={{"overflow":"hidden","display":"block","height":"100vh"}}>
+<section style={{"overflow":"hidden","height":"100%"}}>
     <div  id='map' className='map' >
 
   </div>
