@@ -1,17 +1,21 @@
 import React,{useState,useEffect} from 'react';
 import mapboxgl from 'mapbox-gl';
 import '../Styles/pickup.css';
-
-
-
+import {quote_plus} from '../Functions/UrlQuote';
+import {Dist} from '../Functions/CoordsDist';
 
 
 mapboxgl.accessToken="pk.eyJ1IjoicmV2YSIsImEiOiJjaW1kOGNvbmgwMDR5dHpra253aDM5cWtwIn0.YbIIl9U4E5OQ2YV4QWRdbQ"
+
+
 export default function Map() {
 
   const[fromDest,setFromDest]=useState('');
   const[toDest,setToDest]=useState('');
   const[response,setResponse]=useState(false);
+
+  const[url1,setUrl1]=useState('');
+  const[url2,setUrl2]=useState('');
   
   const[startLat,setStartLat]=useState(null);
   const[startLon,setStartLon]=useState(null);
@@ -19,54 +23,46 @@ export default function Map() {
   const[endLon,setEndLon]=useState(null);
   const[distance,setDistance]=useState(null);
 
-  const[myLat,setMyLat]=useState(null);
-  const[myLon,setMyLon]=useState(null);
   const[location,setLocation]=useState(false);
+  const[div,setDiv]=useState(null);
 
 
-  function degreesToRadians(degrees) {
-    return degrees * Math.PI / 180;
-}
-
+  
 
   const jump=()=>{
-    if(fromDest!=="" && toDest!==""){
+    if(url1!=="" && url2!==""){
       setResponse(true);
-      fetch(`http://127.0.0.1:8000/latlong`, {
-          method: 'POST',
+    
+   
 
-          headers: {
-              "X-CSRFToken": '{{csrf_token}}',
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              "fromaddress": fromDest,
-              "toaddress":toDest
-          }),
-      })
-      .then(res=>res.json())
-      .then(data=>{
-        setStartLat(data[0].fromlat);
-        setStartLon(data[0].fromlon);
-        setEndLat(data[0].tolat);
-        setEndLon(data[0].tolon);
-        setDistance(data[0].distance);
-
+      fetch(url1)
+        .then(res => res.json())
+        .then(data => {
+          setStartLat(data[0]['lat'])
+          setStartLon(data[0]['lon'])
+        })
         
 
-       
+        
+      fetch(url2)
+      .then(res => res.json())
+      .then(data => {
+        setEndLat(data[0]['lat'])
+        setEndLon(data[0]['lon'])
         setResponse(false)
       })
+      .catch(err=>console.log(err))
+
   }
   }
 
-if(startLat!==null && endLat!==null){
+if(startLat && endLat){
+
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
     center: [startLon, startLat],
-    zoom: 12,
+    zoom: 11,
   })
   const marker1 = new mapboxgl.Marker({color:"black"})
   .setLngLat([startLon, startLat])
@@ -75,7 +71,7 @@ if(startLat!==null && endLat!==null){
   const marker2 = new mapboxgl.Marker({color:"black"})
   .setLngLat([endLon, endLat])
   .addTo(map);
-
+  
   map.on('load', function () {
 
     map.addLayer({
@@ -98,16 +94,9 @@ if(startLat!==null && endLat!==null){
             }
         }
     });
-
+    
 });
 
-const dlat=(startLat+endLat)/2;
-const dlon=(startLon+endLon)/2;
-
-const popup = new mapboxgl.Popup({ closeOnClick: false })
-.setLngLat([dlon,dlat])
-.setHTML(`<h6>${distance} km</h6>`)
-.addTo(map);
 
 }
 
@@ -118,14 +107,6 @@ const popup = new mapboxgl.Popup({ closeOnClick: false })
       if(data){
         setLocation(true);
       }
-
-      setMyLon(data.coords.longitude);
-      setMyLat(data.coords.latitude);
-
- 
-      
-
-      
 
   }, error => console.log(error), {
       enableHIghAccuracy: true
@@ -142,6 +123,7 @@ const popup = new mapboxgl.Popup({ closeOnClick: false })
       center: [88.2636, 22.5958],
       zoom: 12,
     })
+    setDiv(window.screen.width);
 
   },[])
     
@@ -149,7 +131,7 @@ const popup = new mapboxgl.Popup({ closeOnClick: false })
   
 
   return (<>
-  {window.screen.width<=540 ?(<>
+  {div<=540 ?(<>
 <section style={{"overflow":"hidden","height":"100%"}}>
     <div  id='map' className='map' >
 
@@ -161,11 +143,18 @@ const popup = new mapboxgl.Popup({ closeOnClick: false })
       
     </div>):(<></>)
     }
+   
     <div classname="form-group">
-      <input type="text" className="form-control input" placeholder="Enter Pickup Location" value={fromDest} onChange={(e)=>setFromDest(e.target.value)}/>
+      <input type="text" className="form-control input" placeholder="Enter Pickup Location" value={fromDest} onChange={(e)=>{
+        setFromDest(e.target.value)
+        setUrl1(`https://nominatim.openstreetmap.org/search/${quote_plus(e.target.value)}?format=json`)
+        }}/>
     </div>
     <div classname="form-group my-3">
-      <input type="text" className="form-control input my-2" placeholder="Enter Final Location" value={toDest} onChange={(e)=>setToDest(e.target.value)}/>
+      <input type="text" className="form-control input my-2" placeholder="Enter Final Location" value={toDest} onChange={(e)=>{
+        setToDest(e.target.value)
+        setUrl2(`https://nominatim.openstreetmap.org/search/${quote_plus(e.target.value)}?format=json`)
+        }}/>
     </div>
     <div className="container-fluid my-2" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
       <button className="btn btn-dark" onClick={jump}>Jump to Destination <i className="	fa fa-send-o" /></button>
@@ -209,11 +198,18 @@ const popup = new mapboxgl.Popup({ closeOnClick: false })
       
     </div>):(<></>)
     }
+  
     <div classname="form-group">
-      <input type="text" className="form-control input" placeholder="Enter Pickup Location" value={fromDest} onChange={(e)=>setFromDest(e.target.value)}/>
+      <input type="text" className="form-control input" placeholder="Enter Pickup Location" value={fromDest} onChange={(e)=>{
+        setFromDest(e.target.value)
+        setUrl1(`https://nominatim.openstreetmap.org/search/${quote_plus(e.target.value)}?format=json`)
+        }}/>
     </div>
     <div classname="form-group my-3">
-      <input type="text" className="form-control input my-2" placeholder="Enter Final Location" value={toDest} onChange={(e)=>setToDest(e.target.value)}/>
+      <input type="text" className="form-control input my-2" placeholder="Enter Final Location" value={toDest} onChange={(e)=>{
+        setToDest(e.target.value)
+        setUrl2(`https://nominatim.openstreetmap.org/search/${quote_plus(e.target.value)}?format=json`)
+        }}/>
     </div>
     <div className="container-fluid my-2" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
       <button className="btn btn-dark" onClick={jump}>Jump to Destination <i className="	fa fa-send-o" /></button>
