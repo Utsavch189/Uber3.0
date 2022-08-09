@@ -103,11 +103,13 @@ function App() {
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Uber 3.0</a>
+    <img src="https://tse3.mm.bing.net/th?id=OIP.ssqWbRUTpo45aWTW7NfbFgHaG8&pid=Api&P=0" alt="" style={{"borderRadius":"50%","height":"32px","width":"32px","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} className='my-2'/>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
+
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Wallet</a>
         </li>
@@ -117,9 +119,7 @@ function App() {
         <li class="nav-item">
           <a class="nav-link" href="#" onClick={logout}>Logout</a>
         </li>
-        <li class="nav-item">
-          <img src="https://tse1.mm.bing.net/th?id=OIP.M9AsZ7Sm6Qq-LXpY92Tt2AHaEK&pid=Api&P=0" alt="" style={{"borderRadius":"50%","height":"30px","width":"30px"}} className='mx-2 my-2'/>
-        </li>
+      
       </ul>
     </div>
   </div>
