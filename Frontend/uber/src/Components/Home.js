@@ -9,7 +9,7 @@ export default function Home({error}) {
 
   return (
     <>
-    <Header/>
+
     
     <Ahome error={error}/>
     </>
