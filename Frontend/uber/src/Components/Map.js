@@ -6,7 +6,7 @@ import {Dist} from '../Functions/CoordsDist';
 
 
 mapboxgl.accessToken="pk.eyJ1IjoicmV2YSIsImEiOiJjaW1kOGNvbmgwMDR5dHpra253aDM5cWtwIn0.YbIIl9U4E5OQ2YV4QWRdbQ"
-
+const state=quote_plus(',West Bengal')
 
 export default function Map() {
 
@@ -132,11 +132,11 @@ if(startLat && endLat){
 
   return (<>
   {div<=540 ?(<>
-<section style={{"overflow":"hidden","height":"100%"}}>
-    <div  id='map' className='map' >
+{console.log(window.screen.width)}
+    <div  id='map' className='map' data-aos="zoom-in">
 
   </div>
-  <div className="container pickup">
+  <div className="container pickup my-4">
   <div className="container-fluid inputss my-3">
     {
       response?(<div class="spinner-grow" role="status">
@@ -185,13 +185,13 @@ if(startLat && endLat){
   </div>
   
 </div>
-</section>
+
   </>):(<>
-    <div  id='map' className='map' >
+    <div  id='map' className='map' data-aos="zoom-in">
 
 
 
-<div className="container pickup">
+<div className="container pickup" >
   <div className="container-fluid inputss my-3">
     {
       response?(<div class="spinner-grow" role="status">
@@ -202,13 +202,13 @@ if(startLat && endLat){
     <div classname="form-group">
       <input type="text" className="form-control input" placeholder="Enter Pickup Location" value={fromDest} onChange={(e)=>{
         setFromDest(e.target.value)
-        setUrl1(`https://nominatim.openstreetmap.org/search/${quote_plus(e.target.value)}?format=json`)
+        setUrl1(`https://nominatim.openstreetmap.org/search/${quote_plus((e.target.value),(state))}?format=json`)
         }}/>
     </div>
     <div classname="form-group my-3">
       <input type="text" className="form-control input my-2" placeholder="Enter Final Location" value={toDest} onChange={(e)=>{
         setToDest(e.target.value)
-        setUrl2(`https://nominatim.openstreetmap.org/search/${quote_plus(e.target.value)}?format=json`)
+        setUrl2(`https://nominatim.openstreetmap.org/search/${quote_plus((e.target.value),(state))}?format=json`)
         }}/>
     </div>
     <div className="container-fluid my-2" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>

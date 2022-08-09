@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import '../Styles/DriverRegister.css';
 import ReCAPTCHA from "react-google-recaptcha";
+import '../Styles/Registe.css';
 
 
 
@@ -9,27 +10,33 @@ export default function Register() {
 
 
     const[name,setName]=useState('')
-    const[gurdianname,setGurdianname]=useState('')
     const[phone,setPhone]=useState('')
     const[email,setEmail]=useState('')
     const[address,setAddress]=useState('')
-    const[passyear,setPassyear]=useState('')
-    const[universityRoll,setUniversityRoll]=useState('')
-    const[degree,setDegree]=useState('')
+    const[exp,setExp]=useState('')
+    const[car,setCar]=useState('')
+
+
+   
+
+    const submit=()=>{
+      
+    }
 
 
   return (
-    <>
-    <div className="mainn">
-  <div className="container additionalData">
+    <>{window.screen.width<=540?(<>
+    
+    <div className="mainns">
+    <div className="container-fluid cancel my-2">
+      <button  style={{"width":"30px"}}><i class="fa fa-times"style={{"fontSize":"15px"}}></i></button>
+  </div>
+  <div className="container additionalDatas my-3">
     <div className="form-group">
       <label htmlFor="usr">Name:</label>
       <input type="text" className="form-control" value={name} onChange={(e)=>setName(e.target.value)}/>
     </div>
-    <div className="form-group">
-      <label htmlFor="usr">Gurdian Name:</label>
-      <input type="text" className="form-control" value={gurdianname} onChange={(e)=>setGurdianname(e.target.value)} />
-    </div>
+   
     <div className="form-group">
       <label htmlFor="usr">Phone Number:</label>
       <input type="number" className="form-control" value={phone} onChange={(e)=>setPhone(e.target.value)} />
@@ -42,28 +49,61 @@ export default function Register() {
       <label htmlFor="usr">Address:</label>
       <input type="text" className="form-control" value={address} onChange={(e)=>setAddress(e.target.value)}/>
     </div>
+
     <div className="form-group">
-      <label htmlFor="usr">Passout Year:</label>
-      <input type="number" className="form-control" value={passyear} onChange={(e)=>setPassyear(e.target.value)}/>
+      <label htmlFor="usr">Driving Experience:</label>
+      <input type="text" className="form-control" value={exp} onChange={(e)=>setExp(e.target.value)}/>
     </div>
     <div className="form-group">
-      <label htmlFor="usr">University Roll Number:</label>
-      <input type="number" className="form-control" value={universityRoll} onChange={(e)=>setUniversityRoll(e.target.value)}/>
+      <label htmlFor="usr">Car Name:</label>
+      <input type="text" className="form-control" value={car} onChange={(e)=>setCar(e.target.value)}/>
     </div>
-    <div className="form-group">
-      <label htmlFor="usr">Degree Name:</label>
-      <input type="text" className="form-control" value={degree} onChange={(e)=>setDegree(e.target.value)}/>
-    </div>
-  </div>
-  <div className="container-fluid footer my-3">
-<div className="recaptcha">
-  <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={captcha}/>
-</div>
-<div className="submit-button">
+    <div className="submit-button">
   <button className="btn btn-primary px-3" onClick={submit}>Add</button>
 </div>
   </div>
+ 
 </div>
+    
+    </>):(
+    <div className="mainn">
+    <div className="container-fluid cancel">
+      <button  style={{"width":"30px"}}><i class="fa fa-times"style={{"fontSize":"15px"}}></i></button>
+  </div>
+  <div className="container additionalData my-4">
+    <div className="form-group">
+      <label htmlFor="usr">Name:</label>
+      <input type="text" className="form-control" value={name} onChange={(e)=>setName(e.target.value)}/>
+    </div>
+   
+    <div className="form-group">
+      <label htmlFor="usr">Phone Number:</label>
+      <input type="number" className="form-control" value={phone} onChange={(e)=>setPhone(e.target.value)} />
+    </div>
+    <div className="form-group">
+      <label htmlFor="usr">Email:</label>
+      <input type="email" className="form-control" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+    </div>
+    <div className="form-group">
+      <label htmlFor="usr">Address:</label>
+      <input type="text" className="form-control" value={address} onChange={(e)=>setAddress(e.target.value)}/>
+    </div>
+
+    <div className="form-group">
+      <label htmlFor="usr">Driving Experience:</label>
+      <input type="text" className="form-control" value={exp} onChange={(e)=>setExp(e.target.value)}/>
+    </div>
+    <div className="form-group">
+      <label htmlFor="usr">Car Name:</label>
+      <input type="text" className="form-control" value={car} onChange={(e)=>setCar(e.target.value)}/>
+    </div>
+    <div className="submit-button">
+  <button className="btn btn-primary px-3" onClick={submit}>Add</button>
+</div>
+  </div>
+ 
+</div>
+)}
     </>
   )
 }

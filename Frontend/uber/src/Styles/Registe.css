@@ -1,0 +1,48 @@
+.mainn {
+    position: absolute;
+    left: 60%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    width: 30vw;
+    height: 55vh;
+    background-color: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.mainns {
+    position: absolute;
+    top: 37%;
+    width: 100vw;
+    height: 55vh;
+    background-color: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+    z-index: 2000;
+}
+
+.cancel {
+    height: 35px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.submit-button {
+    margin-top: 30px;
+}
+
+.additionalData {
+    width: 30vw;
+    height: 500px;
+    display: block;
+}
+
+.additionalDatas {
+    width: 100vw;
+    height: 500px;
+    display: block;
+}
