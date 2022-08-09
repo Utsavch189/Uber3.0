@@ -9,11 +9,11 @@ export default function RideBody() {
                 <br /><br />
           <h1 className="text-center">Request a ride now!</h1>
           
-          <div className="input">
+          <div className="inputt">
             <div classname="form-group">
               <input
                 type="text"
-                classname="form-control input"
+                classname="form-control inputt"
                 placeholder="Enter Pickup Location"
                 style={{"backgroundColor":"rgb(247, 247, 247)","width":"90vw","border":"0!important","borderColor":"rgb(249, 247, 247)"}}
               />
@@ -21,7 +21,7 @@ export default function RideBody() {
             <div classname="form-group ">
               <input
                 type="text"
-                classname="form-control input"
+                classname="form-control inputt"
                 placeholder="Enter Destination"
                 style={{"backgroundColor":"rgb(247, 247, 247)","width":"90vw","border":"0!important","borderColor":"rgb(249, 247, 247)"}}
               />

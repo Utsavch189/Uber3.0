@@ -136,7 +136,7 @@ if(startLat && endLat){
     <div  id='map' className='map' data-aos="zoom-in">
 
   </div>
-  <div className="container pickup my-4">
+  <div className="container pickup"style={{"marginTop":"90px"}}>
   <div className="container-fluid inputss my-3">
     {
       response?(<div class="spinner-grow" role="status">
@@ -201,9 +201,13 @@ if(startLat && endLat){
   
     <div classname="form-group">
       <input type="text" className="form-control input" placeholder="Enter Pickup Location" value={fromDest} onChange={(e)=>{
-        setFromDest(e.target.value)
+       
+       setFromDest(e.target.value)
+        
         setUrl1(`https://nominatim.openstreetmap.org/search/${quote_plus((e.target.value),(state))}?format=json`)
-        }}/>
+        }}
+        
+        />
     </div>
     <div classname="form-group my-3">
       <input type="text" className="form-control input my-2" placeholder="Enter Final Location" value={toDest} onChange={(e)=>{
