@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import '../Styles/DriverRegister.css';
-import ReCAPTCHA from "react-google-recaptcha";
 import '../Styles/Registe.css';
+import { url } from '../Functions/baseurl';
 
 
 
@@ -22,7 +22,7 @@ export default function Register({set,acc}) {
 
     const submit=()=>{
       
-      fetch(`http://127.0.0.1:8000/driver`, {
+      fetch(`${url}/driver`, {
         method: 'POST',
        
         headers: {

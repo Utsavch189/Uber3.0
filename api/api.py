@@ -17,35 +17,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/latlong")
-async def give(request:Request):
-  
-    
+
+
+@app.post("/trips")
+async def trips(request:Request):
     req=await request.json()
-    
-    fromaddress=str(req['fromaddress'])
-    toaddress=str(req['toaddress'])
-    obj=Coord(fromaddress,toaddress)
-    dictt=[
-        {"fromlat":obj.get()[0],
-        "fromlon":obj.get()[1],
-        "tolat":obj.get()[2],
-        "tolon":obj.get()[3],
-        "distance":obj.get()[4]
-        }
-    ]
-    
-   
-    return dictt
+    ac=str(req['account'])
+    print(ac)
+    obj=DB('uber','prevtrips')
+    data=obj.prev_trip(ac)
+    trips=[]
+    for i in data:
+ 
+        trips.append(i)
 
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
+    return trips
 
 
 
@@ -53,7 +39,7 @@ async def websocket_endpoint(websocket: WebSocket):
 async def driver(request:Request):
       
     req=await request.json()
-    print(req)
+   
 
     name=str(req['name'])
     phone=str(req['phone'])
@@ -68,8 +54,5 @@ async def driver(request:Request):
     }
     obj=DB('uber','drivers')
     obj.insert(data)
-    
-    
-    
-   
+       
     return {"msg":"server is running","status":200}

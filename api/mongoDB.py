@@ -24,5 +24,13 @@ class DB:
 
         col.insert_one(data)
 
+    def prev_trip(self,ac):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        data={"acc":ac}
+        res=col.find(data,{"_id":0})
+        
+        return res
+
 
 

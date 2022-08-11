@@ -1,12 +1,10 @@
-
 import './App.css';
 import Home from './Components/Home';
 import Map from './Components/Map';
-import Destinations from './Rider/Destination';
-import Register from './Driver/Register';
 import {ethers} from 'ethers';
 import React,{useState,useEffect} from 'react';
-import Header from './Anonymous/Header';
+import { url } from './Functions/baseurl';
+
 
 
 function App() {
@@ -16,6 +14,7 @@ function App() {
   const[balance,setBalance]=useState('');
   const [isLogged,setISLogged]=useState(false);
   const [isSigned,setIsSigned]=useState(false);
+  const[prevTrip,setPrivTrip]=useState([])
 
 
   const sign=async()=>{
@@ -30,7 +29,28 @@ function App() {
          
          const ac=await window.ethereum.request({method:"eth_requestAccounts"})
          setAddress(ac[0])
- 
+         
+         localStorage.setItem('log',ac[0]);
+         setIsSigned(true)
+
+         fetch(`${url}/trips`, {
+          method: 'POST',
+
+          headers: {
+              "X-CSRFToken": '{{csrf_token}}',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+
+              'account': ac[0]
+          }),
+      })
+      .then(res => res.json())
+      .then(data => {
+        setPrivTrip(data)
+      })
+
          const provider=new ethers.providers.Web3Provider(window.ethereum);
  
          const bal=await provider.getBalance(ac[0])
@@ -38,8 +58,6 @@ function App() {
 
      
         
-         localStorage.setItem('log',ac[0]);
-         setIsSigned(true)
          
  
      }
@@ -65,7 +83,7 @@ function App() {
  
   useEffect(()=>{log();},[])
  
-
+console.log(prevTrip)
   return (
 <>
 {!isLogged?<>
@@ -94,7 +112,7 @@ function App() {
 
 
 
-<Home acc={address}/>
+<Home acc={address} error={error}/>
 
 </>:
   <>
