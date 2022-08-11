@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import '../Styles/pickup.css';
 import {quote_plus} from '../Functions/UrlQuote';
 import {Dist} from '../Functions/CoordsDist';
+import CarList from '../Rider/CarList';
 
 
 mapboxgl.accessToken="pk.eyJ1IjoicmV2YSIsImEiOiJjaW1kOGNvbmgwMDR5dHpra253aDM5cWtwIn0.YbIIl9U4E5OQ2YV4QWRdbQ"
@@ -124,7 +125,7 @@ if(startLat && endLat){
       zoom: 12,
     })
     setDiv(window.screen.width);
-
+    console.log(window.screen.width)
   },[])
     
     
@@ -136,7 +137,7 @@ if(startLat && endLat){
     <div  id='map' className='map' data-aos="zoom-in">
 
   </div>
-  <div className="container pickup"style={{"marginTop":"90px"}}>
+  <div className="container pickup"style={{"marginTop":"150px"}}>
   <div className="container-fluid inputss my-3">
     {
       response?(<div class="spinner-grow" role="status">
@@ -160,31 +161,22 @@ if(startLat && endLat){
       <button className="btn btn-dark" onClick={jump}>Jump to Destination <i className="	fa fa-send-o" /></button>
     </div>
     <div className="container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
-      {!location ? (
-      <button className="btn btn-dark" onClick={allow}>Allow Your Location <i className="fas fa-location mx-4" /></button>
-      ):(
+      
         <button className="btn btn-dark">Search Nearby Services<i className="fa fa-eye mx-4" /></button>
-      )
-      }
+      
     </div>
     {!response?(
     <h6 className="text-center my-4">Nearby Services</h6>):(<></>)}
   </div>
-  <div className="container-fluid car-list">
-    <div className="container-fluid my-3 cars" >
-      <div className="left">
-        <p>UberX</p>
-      </div>
-      <div className="right">
-        <p>300rs</p>
-      </div>
-    </div>
+
+  <CarList/>
+
     <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center","position":"absolute","bottom":"0"}}>
     <button className="btn btn-dark" style={{"marginRight":"35px"}}>Book<i className="fa fa-taxi mx-4" /></button>
   </div>
   </div>
   
-</div>
+
 
   </>):(<>
     <div  id='map' className='map' data-aos="zoom-in">
@@ -219,25 +211,16 @@ if(startLat && endLat){
       <button className="btn btn-dark" onClick={jump}>Jump to Destination <i className="	fa fa-send-o" /></button>
     </div>
     <div className="container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
-      {!location ? (
-      <button className="btn btn-dark" onClick={allow}>Allow Your Location <i className="fas fa-location mx-4" /></button>
-      ):(
+    
         <button className="btn btn-dark">Search Nearby Services<i className="fa fa-eye mx-4" /></button>
-      )
-      }
+      
     </div>
     {!response?(
     <h6 className="text-center my-4">Nearby Services</h6>):(<></>)}
   </div>
-  <div className="container-fluid car-list">
-    <div className="container-fluid my-3 cars" >
-      <div className="left">
-        <p>UberX</p>
-      </div>
-      <div className="right">
-        <p>300rs</p>
-      </div>
-    </div>
+
+    <CarList/>
+
     <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center","position":"absolute","bottom":"0"}}>
     <button className="btn btn-dark" style={{"marginRight":"35px"}}>Book<i className="fa fa-taxi mx-4" /></button>
   </div>
@@ -246,7 +229,7 @@ if(startLat && endLat){
 </div>
 
 
-  </div>
+  
   </>)}
 
 </>

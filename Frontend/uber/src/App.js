@@ -94,7 +94,7 @@ function App() {
 
 
 
-<Home/>
+<Home acc={address}/>
 
 </>:
   <>

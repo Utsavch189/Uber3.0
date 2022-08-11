@@ -1,8 +1,9 @@
 from codecs import utf_8_decode
-from fastapi import FastAPI,Request
+from fastapi import FastAPI,Request,WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from Givelatlong import Coord
 import json
+from mongoDB import DB
 
 app=FastAPI()
 
@@ -36,3 +37,39 @@ async def give(request:Request):
     
    
     return dictt
+
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
+
+
+
+@app.post("/driver")
+async def driver(request:Request):
+      
+    req=await request.json()
+    print(req)
+
+    name=str(req['name'])
+    phone=str(req['phone'])
+    email=str(req['email'])
+    address=str(req['address'])
+    exp=str(req['exp'])
+    car=str(req['car'])
+    acc=str(req['account'])
+
+    data={
+        "name":name,"phone":phone,"email":email,"address":address,"exp":exp,"car":car,"acc":acc
+    }
+    obj=DB('uber','drivers')
+    obj.insert(data)
+    
+    
+    
+   
+    return {"msg":"server is running","status":200}

@@ -1,4 +1,4 @@
-from gettext import find
+
 from http import client
 import pymongo
 
@@ -16,4 +16,13 @@ class DB:
         col = db[f'{self.col}']
         
         return col.find()
+
+    def insert(self,data):
+
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+
+        col.insert_one(data)
+
+
 

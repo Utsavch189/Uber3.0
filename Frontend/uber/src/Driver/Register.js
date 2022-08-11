@@ -6,7 +6,7 @@ import '../Styles/Registe.css';
 
 
 
-export default function Register() {
+export default function Register({set,acc}) {
 
 
     const[name,setName]=useState('')
@@ -15,12 +15,31 @@ export default function Register() {
     const[address,setAddress]=useState('')
     const[exp,setExp]=useState('')
     const[car,setCar]=useState('')
+    
 
 
    
 
     const submit=()=>{
       
+      fetch(`http://127.0.0.1:8000/driver`, {
+        method: 'POST',
+       
+        headers: {
+            "X-CSRFToken": '{{csrf_token}}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            'name':name,
+            'phone':phone,
+            'email':email,
+            'address':address,
+            'exp':exp,
+            'car':car,
+            'account':localStorage.getItem('log')
+        }),
+    })
     }
 
 
@@ -29,7 +48,7 @@ export default function Register() {
     
     <div className="mainns">
     <div className="container-fluid cancel my-2">
-      <button  style={{"width":"30px"}}><i class="fa fa-times"style={{"fontSize":"15px"}}></i></button>
+      <button onClick={()=>set(false)} style={{"width":"30px"}}><i class="fa fa-times"style={{"fontSize":"15px"}}></i></button>
   </div>
   <div className="container additionalDatas my-3">
     <div className="form-group">
@@ -68,7 +87,7 @@ export default function Register() {
     </>):(
     <div className="mainn">
     <div className="container-fluid cancel">
-      <button  style={{"width":"30px"}}><i class="fa fa-times"style={{"fontSize":"15px"}}></i></button>
+      <button onClick={()=>set(false)} style={{"width":"30px"}}><i class="fa fa-times"style={{"fontSize":"15px"}}></i></button>
   </div>
   <div className="container additionalData my-4">
     <div className="form-group">

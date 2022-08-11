@@ -24,6 +24,10 @@
     overflow-y: scroll;
 }
 
+.car-list::-webkit-scrollbar {
+    display: none;
+}
+
 .cars {
     display: flex;
     align-items: center;
@@ -87,4 +91,18 @@
         left: 50%;
         top: 70%;
     }
+}
+
+.left {
+    display: flex;
+    width: auto;
+    height: inherit;
+    align-items: center;
+}
+
+.right {
+    display: flex;
+    width: auto;
+    height: inherit;
+    align-items: center;
 }

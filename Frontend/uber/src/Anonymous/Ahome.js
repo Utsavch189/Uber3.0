@@ -4,7 +4,7 @@ import RideBody from '../Rider/AhomeBody';
 import DriveBody from '../Driver/AHomeBody';
 import UberTop from './UberTop';
 
-export default function Ahome({error}) {
+export default function Ahome({error,acc}) {
 
   const[is_driver,setIs_driver]=useState(false)
 
@@ -57,7 +57,7 @@ export default function Ahome({error}) {
         </div>
         
 
-{!is_driver ? (<RideBody/>):(<DriveBody/>)}
+{!is_driver ? (<RideBody acc={acc}/>):(<DriveBody acc={acc}/>)}
 
 
 
