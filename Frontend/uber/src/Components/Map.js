@@ -125,7 +125,7 @@ if(startLat && endLat){
       zoom: 12,
     })
     setDiv(window.screen.width);
-    console.log(window.screen.width)
+    
   },[])
     
     
@@ -133,7 +133,7 @@ if(startLat && endLat){
 
   return (<>
   {div<=540 ?(<>
-{console.log(window.screen.width)}
+
     <div  id='map' className='map' data-aos="zoom-in">
 
   </div>

@@ -4,6 +4,7 @@ import Map from './Components/Map';
 import {ethers} from 'ethers';
 import React,{useState,useEffect} from 'react';
 import { url } from './Functions/baseurl';
+import Canvas from './PrevTrips/Canvas';
 
 
 
@@ -137,6 +138,7 @@ function App() {
 
 {type==='rider'?(
   <>
+  
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">{accholder}</a>
@@ -162,7 +164,7 @@ function App() {
   </div>
 </nav>
 
-
+<Canvas/>
 
 
 <Map signresult={signresult} name={accholder}/>
