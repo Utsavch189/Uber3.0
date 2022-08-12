@@ -4,7 +4,7 @@ import Map from './Components/Map';
 import {ethers} from 'ethers';
 import React,{useState,useEffect} from 'react';
 import { url } from './Functions/baseurl';
-import Canvas from './PrevTrips/Canvas';
+import Canvas from './Rider/PrevTrips/Canvas';
 
 
 
@@ -18,6 +18,7 @@ function App() {
   const[signresult,setSignresult]=useState([]);
   const[accholder,setAccholder]=useState('');
   const[type,setType]=useState('');
+  const[canvas,setCanvas]=useState(false);
 
 
   const sign=async()=>{
@@ -153,7 +154,7 @@ function App() {
           <a class="nav-link active" aria-current="page" href="#">Wallet</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Previous Trips</a>
+          <a class="nav-link" href="#" onClick={()=>setCanvas(true)}>Previous Trips</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" onClick={logout}>Logout</a>
@@ -164,7 +165,7 @@ function App() {
   </div>
 </nav>
 
-<Canvas/>
+{canvas?<Canvas setCanvas={setCanvas}/>:<></>}
 
 
 <Map signresult={signresult} name={accholder}/>

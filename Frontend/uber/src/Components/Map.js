@@ -63,7 +63,7 @@ if(startLat && endLat){
     container: 'map',
     style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
     center: [startLon, startLat],
-    zoom: 11,
+    zoom: 9,
   })
   const marker1 = new mapboxgl.Marker({color:"black"})
   .setLngLat([startLon, startLat])
@@ -122,7 +122,7 @@ if(startLat && endLat){
       container: 'map',
       style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
       center: [88.2636, 22.5958],
-      zoom: 12,
+      zoom: 9,
     })
     setDiv(window.screen.width);
     

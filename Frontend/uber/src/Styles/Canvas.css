@@ -1,0 +1,52 @@
+.canvas {
+    height: 100vh;
+    width: 40vw;
+    position: absolute;
+    right: 0;
+    z-index: 2000;
+    background-color: rgb(247, 247, 247);
+}
+
+.canvass {
+    height: 80vh;
+    width: 95%;
+    position: absolute;
+    right: 0;
+    z-index: 2000;
+    background-color: rgb(247, 247, 247);
+    overflow: hidden;
+}
+
+.trips {
+    height: 90vh;
+    width: 52%;
+    position: absolute;
+    left: 0;
+    overflow-y: scroll;
+}
+
+.tripss {
+    height: 100%;
+    width: 52%;
+    position: absolute;
+    left: 0;
+    overflow-y: scroll;
+}
+
+.trips::-webkit-scrollbar {
+    display: none;
+}
+
+.tripDetails {
+    height: 90vh;
+    width: 43%;
+    position: absolute;
+    right: 0;
+}
+
+.tripDetailss {
+    height: 100%;
+    width: 43%;
+    position: absolute;
+    right: 0;
+}
