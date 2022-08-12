@@ -1,8 +1,6 @@
-from codecs import utf_8_decode
-from fastapi import FastAPI,Request,WebSocket
+from fastapi import FastAPI,Request
 from fastapi.middleware.cors import CORSMiddleware
-from Givelatlong import Coord
-import json
+from CoordDist import distance
 from mongoDB import DB
 
 app=FastAPI()
@@ -88,3 +86,15 @@ async def driver(request:Request):
     obj.insert_drivers(data)
        
     return {"msg":"server is running","status":200}
+
+
+
+@app.post("/nearby")
+async def nearby(request:Request):
+      
+    req=await request.json()
+    lat=float(req['lat'])
+    lon=float(req['lon'])
+    a=distance(7,lat,lon)
+
+    return a

@@ -7,17 +7,16 @@ def formula(x1,y1,x2,y2):
     res=geopy.distance.geodesic(c1,c2).km
     return res
 
-def distance ():
-    ranges = 5
+def distance (ranges,lat,lon):
+    
     res=[]
-    a=DB('uber','coords')
-    for i in a.get():
-        a=formula(23.0980,88.4622 ,i['lat'],i['lon'])
-        print(a)
+    a=DB('uber','drivers_pos')
+    for i in a.get_coords():
 
+        a=formula(lat,lon ,i['lat'],i['lon'])
+ 
         if (a<=ranges):
-            res.append({'lat':i['lat'],'lon':i['lon']})
-        return (res)
+            res.append({'lat':i['lat'],'lon':i['lon'],'distance':a})
+    return (res)
 
 
-print(distance())

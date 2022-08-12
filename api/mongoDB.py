@@ -11,12 +11,6 @@ class DB:
         self.col=col
         
 
-    def get(self):
-        db=client[f'{self.db}']
-        col = db[f'{self.col}']
-        
-        return col.find()
-
     def insert_drivers(self,data):
 
         db=client[f'{self.db}']
@@ -51,6 +45,18 @@ class DB:
         data={"name":name,"acc":ac}
         user=col.find_one(data,{"_id":0})
         return user
+
+    def insert_prevTrips(self,data):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+
+        col.insert_one(data)
+
+    def get_coords(self):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+
+        return col.find()
 
 
 

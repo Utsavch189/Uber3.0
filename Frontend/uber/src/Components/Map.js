@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import mapboxgl from 'mapbox-gl';
 import '../Styles/pickup.css';
 import {quote_plus} from '../Functions/UrlQuote';
-import {Dist} from '../Functions/CoordsDist';
+import { url } from '../Functions/baseurl';
 import CarList from '../Rider/CarList';
 
 
@@ -26,6 +26,8 @@ export default function Map({signresult,accholder}) {
 
   const[location,setLocation]=useState(false);
   const[div,setDiv]=useState(null);
+
+  const[nearbyCar,setNearbyCar]=useState([])
 
 
   
@@ -101,6 +103,25 @@ if(startLat && endLat){
 
 }
 
+const nearby=()=>{
+  fetch(`${url}/nearby`, {
+    method: 'POST',
+   
+    headers: {
+        "X-CSRFToken": '{{csrf_token}}',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        'lat':startLat,
+        'lon':startLon
+    }),
+})
+.then(res=>res.json())
+.then(data=>{
+  console.log(data)
+})
+}
 
 
   const allow=()=>{
@@ -162,7 +183,7 @@ if(startLat && endLat){
     </div>
     <div className="container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
       
-        <button className="btn btn-dark">Search Nearby Services<i className="fa fa-eye mx-4" /></button>
+        <button className="btn btn-dark" onClick={nearby}>Search Nearby Services<i className="fa fa-eye mx-4" /></button>
       
     </div>
     {!response?(
@@ -212,7 +233,7 @@ if(startLat && endLat){
     </div>
     <div className="container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center"}}>
     
-        <button className="btn btn-dark">Search Nearby Services<i className="fa fa-eye mx-4" /></button>
+        <button className="btn btn-dark" onClick={nearby}>Search Nearby Services<i className="fa fa-eye mx-4" /></button>
       
     </div>
     {!response?(
