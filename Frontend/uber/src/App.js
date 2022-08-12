@@ -14,7 +14,7 @@ function App() {
   const[balance,setBalance]=useState('');
   const [isLogged,setISLogged]=useState(false);
   const [isSigned,setIsSigned]=useState(false);
-  const[prevTrip,setPrivTrip]=useState([])
+  const[signresult,setSignresult]=useState([])
 
 
   const sign=async()=>{
@@ -29,11 +29,14 @@ function App() {
          
          const ac=await window.ethereum.request({method:"eth_requestAccounts"})
          setAddress(ac[0])
-         
+
+         let name=prompt('enter your name');
+
+         if (name && ac[0]){
          localStorage.setItem('log',ac[0]);
          setIsSigned(true)
 
-         fetch(`${url}/trips`, {
+         fetch(`${url}/sign`, {
           method: 'POST',
 
           headers: {
@@ -43,20 +46,21 @@ function App() {
           },
           body: JSON.stringify({
 
-              'account': ac[0]
+              'account': ac[0],
+              'name':name
           }),
       })
       .then(res => res.json())
       .then(data => {
-        setPrivTrip(data)
+        setSignresult(data)
       })
-
+    
          const provider=new ethers.providers.Web3Provider(window.ethereum);
  
          const bal=await provider.getBalance(ac[0])
          setBalance(ethers.utils.formatEther(bal));
 
-     
+    }
         
          
  
@@ -83,7 +87,7 @@ function App() {
  
   useEffect(()=>{log();},[])
  
-console.log(prevTrip)
+console.log(signresult)
   return (
 <>
 {!isLogged?<>

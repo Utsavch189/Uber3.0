@@ -17,20 +17,40 @@ class DB:
         
         return col.find()
 
-    def insert(self,data):
+    def insert_drivers(self,data):
 
         db=client[f'{self.db}']
         col = db[f'{self.col}']
 
         col.insert_one(data)
 
-    def prev_trip(self,ac):
+    def prev_trip(self,ac,name):
         db=client[f'{self.db}']
         col = db[f'{self.col}']
-        data={"acc":ac}
+        data={"name":name,"acc":ac}
         res=col.find(data,{"_id":0})
         
         return res
+
+    def insert_riders(self,data):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+
+        col.insert_one(data)
+
+    def find_driver(self,ac,name):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        data={"name":name,"acc":ac}
+        user=col.find_one(data,{"_id":0})
+        return user
+
+    def find_rider(self,ac,name):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        data={"name":name,"acc":ac}
+        user=col.find_one(data,{"_id":0})
+        return user
 
 
 
