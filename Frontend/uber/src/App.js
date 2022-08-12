@@ -14,7 +14,9 @@ function App() {
   const[balance,setBalance]=useState('');
   const [isLogged,setISLogged]=useState(false);
   const [isSigned,setIsSigned]=useState(false);
-  const[signresult,setSignresult]=useState([])
+  const[signresult,setSignresult]=useState([]);
+  const[accholder,setAccholder]=useState('');
+  const[type,setType]=useState('');
 
 
   const sign=async()=>{
@@ -30,7 +32,7 @@ function App() {
          const ac=await window.ethereum.request({method:"eth_requestAccounts"})
          setAddress(ac[0])
 
-         let name=prompt('enter your name');
+         let name=prompt('USERNAME');
 
          if (name && ac[0]){
          localStorage.setItem('log',ac[0]);
@@ -53,6 +55,18 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setSignresult(data)
+        if(data[0][0]){
+        localStorage.setItem('name',data['0'][0]['name'])
+        localStorage.setItem('type',data['0'][1]['type'])
+        setAccholder(data['0'][0]['name'])
+        setType(data['0'][1]['type'])
+        }
+        else{
+          localStorage.setItem('name',data[0]['name'])
+          localStorage.setItem('type',data[1]['type'])
+          setAccholder(data[0]['name'])
+          setType(data[1]['type'])
+        }
       })
     
          const provider=new ethers.providers.Web3Provider(window.ethereum);
@@ -62,8 +76,6 @@ function App() {
 
     }
         
-         
- 
      }
      else{
          setError("Network is wrong")
@@ -72,8 +84,10 @@ function App() {
   }
 
   const log=()=>{
-    if(localStorage.getItem('log')){
+    if(localStorage.getItem('log') && localStorage.getItem('name') && localStorage.getItem('type')){
       setISLogged(true);
+      setAccholder(localStorage.getItem('name'))
+      setType(localStorage.getItem('type'))
     }
     else{
       setISLogged(false)
@@ -87,7 +101,7 @@ function App() {
  
   useEffect(()=>{log();},[])
  
-console.log(signresult)
+
   return (
 <>
 {!isLogged?<>
@@ -121,10 +135,11 @@ console.log(signresult)
 </>:
   <>
 
-
+{type==='rider'?(
+  <>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Uber 3.0</a>
+    <a class="navbar-brand" href="#">{accholder}</a>
     <img src="https://tse3.mm.bing.net/th?id=OIP.ssqWbRUTpo45aWTW7NfbFgHaG8&pid=Api&P=0" alt="" style={{"borderRadius":"50%","height":"32px","width":"32px","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} className='my-2'/>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -150,7 +165,17 @@ console.log(signresult)
 
 
 
-<Map/>
+<Map signresult={signresult} name={accholder}/>
+</>
+)
+:
+(<>
+
+<h1>driver</h1>
+
+
+</>)
+}
 </>
 }
 </>

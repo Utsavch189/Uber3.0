@@ -9,7 +9,7 @@ import CarList from '../Rider/CarList';
 mapboxgl.accessToken="pk.eyJ1IjoicmV2YSIsImEiOiJjaW1kOGNvbmgwMDR5dHpra253aDM5cWtwIn0.YbIIl9U4E5OQ2YV4QWRdbQ"
 const state=quote_plus(',West Bengal')
 
-export default function Map() {
+export default function Map({signresult,accholder}) {
 
   const[fromDest,setFromDest]=useState('');
   const[toDest,setToDest]=useState('');

@@ -1,12 +1,12 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import '../Styles/DriverRegister.css';
 import '../Styles/Registe.css';
 import { url } from '../Functions/baseurl';
+import {ethers} from 'ethers';
 
 
 
-
-export default function Register({set,acc}) {
+export default function Register({set}) {
 
 
     const[name,setName]=useState('')
@@ -15,13 +15,28 @@ export default function Register({set,acc}) {
     const[address,setAddress]=useState('')
     const[exp,setExp]=useState('')
     const[car,setCar]=useState('')
+    const[ac,setAc]=useState('')
     
+    const connect=async()=>{
+      if(!window.ethereum){
+        alert("wallet not found");
+      }
+      else{
+        await window.ethereum.send("eth_requestAccounts");
+     const chain='0x4';
+     let chainid=await window.ethereum.request({method:'eth_chainId'});
+     if(chain===chainid){
+         
+         const ac=await window.ethereum.request({method:"eth_requestAccounts"})
+         setAc(ac[0])
+     }
+      }
+    }
 
-
-   
+   useEffect(()=>{connect();},[])
 
     const submit=()=>{
-      
+      if(ac){
       fetch(`${url}/driver`, {
         method: 'POST',
        
@@ -37,9 +52,17 @@ export default function Register({set,acc}) {
             'address':address,
             'exp':exp,
             'car':car,
-            'account':localStorage.getItem('log')
+            'account':ac
         }),
     })
+    setName('')
+    setPhone('')
+    setEmail('')
+    setAddress('')
+    setExp('')
+    setCar('')
+    setAc('')
+  }
     }
 
 
