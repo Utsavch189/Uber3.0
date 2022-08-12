@@ -58,5 +58,12 @@ class DB:
 
         return col.find()
 
+    def driver(self,ac):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        data={"acc":ac}
+        user=col.find_one(data,{"_id":0})
+        return user
+
 
 

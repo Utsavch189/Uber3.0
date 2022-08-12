@@ -95,6 +95,6 @@ async def nearby(request:Request):
     req=await request.json()
     lat=float(req['lat'])
     lon=float(req['lon'])
-    a=distance(7,lat,lon)
+    a=distance(10,lat,lon)
 
     return a

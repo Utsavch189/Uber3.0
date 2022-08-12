@@ -11,12 +11,13 @@ def distance (ranges,lat,lon):
     
     res=[]
     a=DB('uber','drivers_pos')
+    b=DB('uber','drivers')
     for i in a.get_coords():
 
         a=formula(lat,lon ,i['lat'],i['lon'])
  
         if (a<=ranges):
-            res.append({'lat':i['lat'],'lon':i['lon'],'distance':a})
+            res.append({'data':b.driver(i['acc']),'distance':a})
     return (res)
 
 

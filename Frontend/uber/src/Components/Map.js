@@ -119,7 +119,7 @@ const nearby=()=>{
 })
 .then(res=>res.json())
 .then(data=>{
-  console.log(data)
+  setNearbyCar(data)
 })
 }
 
@@ -189,12 +189,13 @@ const nearby=()=>{
     {!response?(
     <h6 className="text-center my-4">Nearby Services</h6>):(<></>)}
   </div>
-
-  <CarList/>
-
-    <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center","position":"absolute","bottom":"0"}}>
-    <button className="btn btn-dark" style={{"marginRight":"35px"}}>Book<i className="fa fa-taxi mx-4" /></button>
-  </div>
+  <div className="container-fluid car-list">
+  {nearbyCar.map((i,k)=>
+  <CarList data={i} key={k} car={i['data']['car']}/>
+)
+}
+</div>
+  
   </div>
   
 
@@ -239,9 +240,12 @@ const nearby=()=>{
     {!response?(
     <h6 className="text-center my-4">Nearby Services</h6>):(<></>)}
   </div>
-
-    <CarList/>
-
+  <div className="container-fluid car-list">
+  {nearbyCar.map((i,k)=>
+  <CarList data={i} key={k}/>
+)
+}
+</div>
     <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center","position":"absolute","bottom":"0"}}>
     <button className="btn btn-dark" style={{"marginRight":"35px"}}>Book<i className="fa fa-taxi mx-4" /></button>
   </div>
