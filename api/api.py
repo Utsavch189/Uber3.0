@@ -30,16 +30,18 @@ async def sign(request:Request):
     trip_obj=trip_db.prev_trip(ac,name)
 
     user=[]
-    trip=[]
+    
     res=[]
     
     if rider_obj!=None:       
-             
+        trip=[]     
         user.append(rider_obj)
         user.append({"type":"rider"})
-        if trip_obj:
-            for x in trip_obj:
-                trip.append(x)
+        
+        if trip_obj!=None:
+            for i in trip_obj:
+                print(i)
+                trip.append(i)         
             res.append(user)
             res.append(trip)
             return res
@@ -98,3 +100,25 @@ async def nearby(request:Request):
     a=distance(10,lat,lon)
 
     return a
+
+
+@app.post("/addtrip")
+async def nearby(request:Request):
+      
+    req=await request.json()
+
+    froms=str(req['from'])
+    to=str(req['to'])
+    driver=str(req['driver'])
+    car=str(req['car'])
+    cost=str(req['cost'])
+    date=str(req['date'])
+
+    data={
+        "from":froms,"to":to,"driver":driver,"car":car,"cost":cost,"date":date
+    }
+
+    a=DB('uber','prevtrips')
+    a.add_trip(data)
+
+    return {"msg":"added Successfully"}

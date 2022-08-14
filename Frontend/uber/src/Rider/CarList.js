@@ -5,20 +5,17 @@ import Booking from './Booking';
 
 
 
-function CarList({data,car}) {
+function CarList({data,coordist,from,to}) {
 
   const[selected,setSelected]=useState(false);
   
-  const details=()=>{
-
-    setSelected(true)
-  }
+ 
 
 
   return (
     <>
-       {selected?<Booking setCanvas={setSelected}/>:<></>}
-    <div className="container-fluid my-3 cars" onClick={()=>setSelected(true)}>
+       {selected?<Booking setCanvas={setSelected} cost={cost(data['distance']).toFixed(7)} data={data} coordist={coordist} from={from} to={to}/>:<></>}
+    <div className="container-fluid my-3 cars" onClick={()=>setSelected(true)} style={{"cursor":"pointer"}}>
       <div className="left">
         <p>{data['data']['car']}({data['distance'].toFixed(2)}km)</p>
       </div>
@@ -26,9 +23,7 @@ function CarList({data,car}) {
         <p>{cost(data['distance']).toFixed(7)}Eth</p>
       </div>
     </div>
-    <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center","position":"absolute","bottom":"0"}}>
-   {car? <button className="btn btn-dark" style={{"marginRight":"35px"}}>Book<i className="fa fa-taxi mx-4" /></button>:<></>}
-  </div>
+    
  
     </>
   )

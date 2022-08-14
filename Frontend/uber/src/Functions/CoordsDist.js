@@ -1,4 +1,4 @@
-export function Dist(lat1, lon1, lat2, lon2) {
+export default function Dist(lat1, lon1, lat2, lon2) {
     var R = 6371;
     var dLat = deg2rad(lat2 - lat1);
     var dLon = deg2rad(lon2 - lon1);

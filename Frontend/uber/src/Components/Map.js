@@ -4,6 +4,7 @@ import '../Styles/pickup.css';
 import {quote_plus} from '../Functions/UrlQuote';
 import { url } from '../Functions/baseurl';
 import CarList from '../Rider/CarList';
+import Dist from '../Functions/CoordsDist';
 
 
 mapboxgl.accessToken="pk.eyJ1IjoicmV2YSIsImEiOiJjaW1kOGNvbmgwMDR5dHpra253aDM5cWtwIn0.YbIIl9U4E5OQ2YV4QWRdbQ"
@@ -28,6 +29,8 @@ export default function Map({signresult,accholder}) {
   const[div,setDiv]=useState(null);
 
   const[nearbyCar,setNearbyCar]=useState([])
+
+  console.log(signresult)
 
 
   
@@ -191,7 +194,7 @@ const nearby=()=>{
   </div>
   <div className="container-fluid car-list">
   {nearbyCar.map((i,k)=>
-  <CarList data={i} key={k} car={i['data']['car']}/>
+  <CarList data={i} key={k} car={i['data']['car']} coordist={Dist(startLat,startLon,endLat,endLon)} from={fromDest} to={toDest}/>
 )
 }
 </div>
@@ -242,13 +245,11 @@ const nearby=()=>{
   </div>
   <div className="container-fluid car-list">
   {nearbyCar.map((i,k)=>
-  <CarList data={i} key={k}/>
+  <CarList data={i} key={k} coordist={Dist(startLat,startLon,endLat,endLon)} from={fromDest} to={toDest}/>
 )
 }
 </div>
-    <div className="foot container-fluid" style={{"height":"50px","display":"flex","-webkit-flex-direction":"column","-ms-flex-direction":"column","flex-direction":"column","-webkit-align-items":"center","-webkit-box-align":"center","-ms-flex-align":"center","align-items":"center","-webkit-box-pack":"center","-webkit-justify-content":"center","-ms-flex-pack":"center","justify-content":"center","position":"absolute","bottom":"0"}}>
-    <button className="btn btn-dark" style={{"marginRight":"35px"}}>Book<i className="fa fa-taxi mx-4" /></button>
-  </div>
+    
   </div>
   
 </div>

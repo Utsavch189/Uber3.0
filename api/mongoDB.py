@@ -21,8 +21,12 @@ class DB:
     def prev_trip(self,ac,name):
         db=client[f'{self.db}']
         col = db[f'{self.col}']
+       
         data={"name":name,"acc":ac}
-        res=col.find(data,{"_id":0})
+       
+        res=col.find(data)
+        for i in res:
+            print(i)
         
         return res
 
@@ -64,6 +68,11 @@ class DB:
         data={"acc":ac}
         user=col.find_one(data,{"_id":0})
         return user
+
+    def add_trip(self,data):
+         db=client[f'{self.db}']
+         col = db[f'{self.col}']
+         col.insert_one(data)
 
 
 
