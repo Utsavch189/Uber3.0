@@ -40,7 +40,7 @@ async def sign(request:Request):
         
         if trip_obj!=None:
             for i in trip_obj:
-                print(i)
+
                 trip.append(i)         
             res.append(user)
             res.append(trip)
@@ -103,7 +103,7 @@ async def nearby(request:Request):
 
 
 @app.post("/addtrip")
-async def nearby(request:Request):
+async def addtrip(request:Request):
       
     req=await request.json()
 
@@ -128,7 +128,7 @@ async def nearby(request:Request):
 
 
 @app.post("/updatecoords")
-async def nearby(request:Request):
+async def updatecoords(request:Request):
       
     req=await request.json()
     ac=str(req['acc'])
@@ -139,3 +139,39 @@ async def nearby(request:Request):
     a.add_driverPos(ac,lat,lon)
 
     return {"msg":"updated Successfully"}
+
+
+@app.post("/book")
+async def book(request:Request):
+      
+    req=await request.json()
+   
+    froms=str(req['from'])
+    to=str(req['to'])
+    driverac=str(req['diverac'])
+    accholder=str(req['accholder'])
+    admin=str(req['admin'])
+    date=str(req['date'])
+    touched=0
+    _id=admin+driverac+froms+to
+    data={
+        "_id":_id,"from":froms,"to":to,"driverac":driverac,"userac":accholder,"user":admin,"date":date,"booked":touched
+    }
+    a=DB('uber','rider_driver_connection')
+    a.add_booking(data)
+
+    return {"msg":"booked Successfully"}
+
+
+@app.post("/reqs")
+async def reqs(request:Request):
+    req=await request.json()
+    acc=str(req['acc'])
+    a=DB('uber','rider_driver_connection')
+    data=a.get_booking(acc)
+    passengers=[]
+    for i in data:
+
+        passengers.append(i)
+    return passengers
+

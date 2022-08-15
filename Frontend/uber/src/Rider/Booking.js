@@ -3,10 +3,28 @@ import { useState } from 'react';
 import '../Styles/Booking.css';
 import pay from '../Functions/PayEth';
 import addon from '../Functions/AddTrip';
+import book from '../Functions/book';
+import { useEffect } from 'react';
 
 
 function Booking({setCanvas,data,cost,coordist,from,to}) {
+
+  const [bookPending,setBookPending]=useState(false)
   const date=new Date();
+  
+  const books=()=>{
+    book(from,to,data['data']['acc'],date);
+    setBookPending(true)
+    localStorage.setItem('pendings',data['data']['name'])
+  }
+
+  useEffect(()=>{
+    if(data && localStorage.getItem('pendings')){
+    if(data['data']['name']===localStorage.getItem('pendings')){
+      setBookPending(true)
+    }
+  }
+  },[])
   
 const add=()=>{
   
@@ -53,7 +71,9 @@ const add=()=>{
           </h6>
 <div className="footss">
       <div className="container bookbutton">
-          <button style={{"color":"white","width":"82%"}} onClick={add} className='bg bg-dark'>Book {data['data']['car']} <i className='fa fa-taxi'></i></button>
+          {!bookPending?<button style={{"color":"white","width":"82%"}} onClick={books} className='bg bg-dark'>Book {data['data']['car']} <i className='fa fa-taxi'></i></button>:
+          <button style={{"color":"white","width":"82%"}} onClick={books} className='bg bg-dark'>Pending...</button>
+          }
       </div>
       </div>
 
@@ -94,7 +114,9 @@ const add=()=>{
   </h6>
 <div className="footss">
 <div className="container bookbutton">
-  <button style={{"color":"white","width":"82%"}} onClick={add} className='bg bg-dark'>Book {data['data']['car']} <i className='fa fa-taxi'></i></button>
+{!bookPending?<button style={{"color":"white","width":"82%"}} onClick={books} className='bg bg-dark'>Book {data['data']['car']} <i className='fa fa-taxi'></i></button>:
+          <button style={{"color":"white","width":"82%"}} onClick={books} className='bg bg-dark'>Pending...</button>
+          }
 </div>
 </div>
 

@@ -88,5 +88,17 @@ class DB:
             }}
             col.update_one(q,qq)
 
+    def add_booking(self,data):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        col.insert_one(data)
+
+    def get_booking(self,ac):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        f={"driverac":ac,"booked":0}
+        c=col.find(f)
+        return c
+
 
 
