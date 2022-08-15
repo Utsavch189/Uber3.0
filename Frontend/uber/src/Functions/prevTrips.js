@@ -1,6 +1,6 @@
  const trip = (ac) => {
 
-     let d;
+
      fetch(`http://127.0.0.1:8000/trips`, {
              method: 'POST',
 

@@ -5,6 +5,7 @@ import {ethers} from 'ethers';
 import React,{useState,useEffect} from 'react';
 import { url } from './Functions/baseurl';
 import Canvas from './Rider/PrevTrips/Canvas';
+import DriverMap from './Driver/DriverMap'
 
 
 
@@ -57,6 +58,7 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setSignresult(data)
+        localStorage.setItem('data',JSON.stringify(data))
         if(data[0][0]){
         localStorage.setItem('name',data['0'][0]['name'])
         localStorage.setItem('type',data['0'][1]['type'])
@@ -165,7 +167,7 @@ function App() {
   </div>
 </nav>
 
-{canvas?<Canvas setCanvas={setCanvas}/>:<></>}
+{canvas?<Canvas setCanvas={setCanvas} trips={signresult}/>:<></>}
 
 
 <Map signresult={signresult} name={accholder}/>
@@ -174,8 +176,31 @@ function App() {
 :
 (<>
 
-<h1>driver</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">{accholder}</a>
+    <img src="https://tse3.mm.bing.net/th?id=OIP.ssqWbRUTpo45aWTW7NfbFgHaG8&pid=Api&P=0" alt="" style={{"borderRadius":"50%","height":"32px","width":"32px","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} className='my-2'/>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
 
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Wallet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" >Passenger Requests</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onClick={logout}>Logout</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+<DriverMap/>
 
 </>)
 }

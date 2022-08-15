@@ -24,9 +24,8 @@ class DB:
        
         data={"name":name,"acc":ac}
        
-        res=col.find(data)
-        for i in res:
-            print(i)
+        res=col.find(data,{"_id":0})
+
         
         return res
 
@@ -73,6 +72,21 @@ class DB:
          db=client[f'{self.db}']
          col = db[f'{self.col}']
          col.insert_one(data)
+
+    def add_driverPos(self,ac,lat,lon):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        q={"acc":ac}
+        f=col.find_one(q)
+        if(f==None):
+            data={"acc":ac,"lat":float(lat),"lon":float(lon)}
+            col.insert_one(data)
+        else:
+            qq={"$set":{
+                "lat":float(lat),
+                "lon":float(lon)
+            }}
+            col.update_one(q,qq)
 
 
 

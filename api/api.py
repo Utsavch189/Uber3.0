@@ -112,13 +112,30 @@ async def nearby(request:Request):
     driver=str(req['driver'])
     car=str(req['car'])
     cost=str(req['cost'])
+    accholder=str(req['accholder'])
+    admin=str(req['admin'])
     date=str(req['date'])
 
     data={
-        "from":froms,"to":to,"driver":driver,"car":car,"cost":cost,"date":date
+        "from":froms,"to":to,"driver":driver,"car":car,"cost":cost,"date":date,"acc":accholder,"name":admin
     }
 
     a=DB('uber','prevtrips')
     a.add_trip(data)
 
     return {"msg":"added Successfully"}
+
+
+
+@app.post("/updatecoords")
+async def nearby(request:Request):
+      
+    req=await request.json()
+    ac=str(req['acc'])
+    lat=float(req['lat'])
+    lon=float(req['lon'])
+
+    a=DB('uber','drivers_pos')
+    a.add_driverPos(ac,lat,lon)
+
+    return {"msg":"updated Successfully"}

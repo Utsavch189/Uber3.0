@@ -15,6 +15,8 @@ export default function addon(fromdest, todest, driver, car, pay, date) {
             'driver': driver,
             'car': car,
             'cost': pay,
+            'accholder': localStorage.getItem('log'),
+            'admin': localStorage.getItem('name'),
             'date': date
         }),
     })

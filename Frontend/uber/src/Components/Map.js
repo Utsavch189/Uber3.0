@@ -30,7 +30,7 @@ export default function Map({signresult,accholder}) {
 
   const[nearbyCar,setNearbyCar]=useState([])
 
-  console.log(signresult)
+
 
 
   
