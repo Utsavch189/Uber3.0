@@ -17,7 +17,11 @@ export default function DriverMap() {
   const[myLon,setMyLon]=useState(0);
   const[passReq,setPassReq]=useState([]);
   const[hasPass,setHasPass]=useState(false)
-
+  const[startLat,setStartLat]=useState(null);
+  const[startLon,setStartLon]=useState(null);
+  const[endLat,setEndLat]=useState(null);
+  const[endLon,setEndLon]=useState(null);
+  const[bridges,setBridge]=useState(false)
 
 
   const allow=()=>{
@@ -33,19 +37,6 @@ export default function DriverMap() {
 
   }
 
-  const updatePos=()=>{
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
-        center: [myLon, myLat],
-        zoom: 11,
-      })
-
-      const marker1 = new mapboxgl.Marker({color:"black"})
-      .setLngLat([myLon, myLat])
-      .addTo(map);
-    
-  }
 
   const passengers=()=>{
     fetch(`${url}/reqs`, {
@@ -70,45 +61,150 @@ export default function DriverMap() {
       
   })
   }
+
+  const set=()=>{
+    if (localStorage.getItem('userFrom') && localStorage.getItem('userTo')){
+    let a=JSON.parse(localStorage.getItem('userFrom'));
+    let b=JSON.parse(localStorage.getItem('userTo'));
+    setStartLat(a.lat);
+    setStartLon(a.lon);
+    setEndLat(b.lat);
+    setEndLon(b.lon);
+    setBridge(true)
+    }
+  }
   
+  const bridge=()=>{
+    if (localStorage.getItem('userFrom') && localStorage.getItem('userTo') && myLat && myLon){
+   
+
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
+        center: [startLon, startLat],
+        zoom: 9,
+      })
+      const marker1 = new mapboxgl.Marker({color:"blue"})
+      .setLngLat([startLon, startLat])
+      .addTo(map);
+    
+      const marker2 = new mapboxgl.Marker({color:"blue"})
+      .setLngLat([endLon, endLat])
+      .addTo(map);
+
+      const marker3 = new mapboxgl.Marker({color:"black"})
+      .setLngLat([myLon, myLat])
+      .addTo(map);
+      
+      map.on('load', function () {
+    
+        map.addLayer({
+            "id": "route",
+            "type": "line",
+    
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                          [myLon,myLat],
+                          [startLon,startLat],
+                          [endLon, endLat]
+                          
+                            
+                        ]
+                    }
+                }
+            }
+        });
+        
+    });
+    
+    }
+  }
 
 
   useEffect(()=>{
     allow();
+    passengers();
+    set();
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
       center: [88.363892, 22.572645],
       zoom: 11,
     })
-    setInterval(()=>{
-
+    const interval=setInterval(()=>{
       navigator.geolocation.getCurrentPosition(data => {
-        if(data){
-          const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
-            center: [data.coords.longitude, data.coords.latitude],
-            zoom: 11,
-          })
-    
-          const marker1 = new mapboxgl.Marker({color:"black"})
-          .setLngLat([data.coords.longitude, data.coords.latitude])
-          .addTo(map);
+        //updateCoords(data.coords.latitude,data.coords.longitude)
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
+        center: [startLon, startLat],
+        zoom: 9,
+      })
+      if(localStorage.getItem('userFrom') && localStorage.getItem('userTo')){
+      const marker3 = new mapboxgl.Marker({color:"black"})
+      .setLngLat([data.coords.longitude, data.coords.latitude])
+      .addTo(map);
 
-          //updateCoords(data.coords.latitude,data.coords.longitude)
-        }
-  
-    }, error => console.log(error), {
-        enableHIghAccuracy: true
-    })
-        
+      const marker1 = new mapboxgl.Marker({color:"blue"})
+      .setLngLat([JSON.parse(localStorage.getItem('userFrom')).lon, JSON.parse(localStorage.getItem('userFrom')).lat])
+      .addTo(map);
+    
+      const marker2 = new mapboxgl.Marker({color:"blue"})
+      .setLngLat([JSON.parse(localStorage.getItem('userTo')).lon, JSON.parse(localStorage.getItem('userTo')).lat])
+      .addTo(map);
+
+     
+      
+      map.on('load', function () {
+    
+        map.addLayer({
+            "id": "route",
+            "type": "line",
+    
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                          [data.coords.longitude,data.coords.latitude],
+                          [JSON.parse(localStorage.getItem('userFrom')).lon, JSON.parse(localStorage.getItem('userFrom')).lat],
+                          [JSON.parse(localStorage.getItem('userTo')).lon, JSON.parse(localStorage.getItem('userTo')).lat]
+                          
+                            
+                        ]
+                    }
+                }
+            }
+        });
+      
+    });
+  }
+  else{
+    const marker = new mapboxgl.Marker({color:"black"})
+      .setLngLat([data.coords.longitude, data.coords.latitude])
+      .addTo(map);
+  }
+          
+        }, error => console.log(error), {
+          enableHIghAccuracy: true
+      })
+       
        passengers();
-        
-    },100000)
+       
+       set();
+    },70000)
 
     setDiv(window.screen.width);
-    
+    return ()=>clearInterval(interval)
   },[])
     
   
@@ -116,7 +212,9 @@ export default function DriverMap() {
 
   return (<>
   {hasPass?<Success data="New Passenger!"/>:<></>}
-<div  id='map' className='map' data-aos="zoom-in"></div>
+<div  id='map' className='map' data-aos="zoom-in" style={{"height":"100vh"}}>
+ {bridges? <button style={{"position":"absolute","zIndex":"100","height":"30px","width":"50px","color":"white","border":"none"}} className='bg bg-dark my-4 mx-4' onClick={bridge}>Bridge</button>:<></>}
+</div>
 
          </>
   )

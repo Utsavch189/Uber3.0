@@ -175,3 +175,48 @@ async def reqs(request:Request):
         passengers.append(i)
     return passengers
 
+
+@app.post("/unbook")
+async def unbook(request:Request):
+    req=await request.json()
+    dacc=str(req['diverac'])
+    uacc=str(req['accholder'])
+    a=DB('uber','rider_driver_connection')
+    a.remove_booking(dacc,uacc)
+
+    return {"msg":"unbooked"}
+
+
+@app.post("/accept")
+async def accept(request:Request):
+    req=await request.json()
+    _id=str(req['id'])
+
+    a=DB('uber','rider_driver_connection')
+    a.accept(_id)
+
+    return {"msg":"accepted"}
+
+
+@app.post("/reject")
+async def reject(request:Request):
+    req=await request.json()
+    _id=str(req['id'])
+
+    a=DB('uber','rider_driver_connection')
+    a.reject(_id)
+
+    return {"msg":"rejected"}
+
+
+@app.post("/status")
+async def status(request:Request):
+    req=await request.json()
+    dac=str(req['diverac'])
+    uac=str(req['accholder'])
+
+    a=DB('uber','rider_driver_connection')
+    msg=a.accept_or_reject(dac,uac)
+
+    return {"msg":msg}
+

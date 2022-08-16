@@ -1,4 +1,5 @@
 
+from asyncio.windows_events import NULL
 from http import client
 import pymongo
 
@@ -93,12 +94,52 @@ class DB:
         col = db[f'{self.col}']
         col.insert_one(data)
 
+    def remove_booking(self,driverac,userac):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        f={"driverac":driverac,"booked":0,"userac":userac}
+        col.delete_one(f)
+
     def get_booking(self,ac):
         db=client[f'{self.db}']
         col = db[f'{self.col}']
         f={"driverac":ac,"booked":0}
         c=col.find(f)
         return c
+
+    def accept(self,_id):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        f={"_id":_id,"booked":0}
+        c={"$set":{"booked":1}}
+        col.update_one(f,c)
+
+    def reject(self,_id):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        f={"_id":_id,"booked":0}
+        
+        col.delete_one(f)
+
+    def accept_or_reject(self,dac,uac):
+        db=client[f'{self.db}']
+        col = db[f'{self.col}']
+        f={"driverac":dac,"userac":uac}
+        c=col.find_one(f,{"booked":1})
+        if c:
+            if c['booked']==0:
+                return 'pending'
+            elif c['booked']==1:
+                return 'accepted'
+            else:
+                return NULL
+        else:
+            return "reject"
+        
+   
+
+
+        
 
 
 

@@ -6,6 +6,7 @@ import React,{useState,useEffect} from 'react';
 import { url } from './Functions/baseurl';
 import Canvas from './Rider/PrevTrips/Canvas';
 import DriverMap from './Driver/DriverMap'
+import ReqCanvas from './Driver/Passengers/ReqCanvas';
 
 
 
@@ -20,6 +21,7 @@ function App() {
   const[accholder,setAccholder]=useState('');
   const[type,setType]=useState('');
   const[canvas,setCanvas]=useState(false);
+  const[passreqs,setPassreqs]=useState(false);
 
 
   const sign=async()=>{
@@ -190,7 +192,7 @@ function App() {
           <a class="nav-link active" aria-current="page" href="#">Wallet</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" >Passenger Requests</a>
+          <a class="nav-link" href="#" onClick={()=>setPassreqs(true)} >Passenger Requests</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" onClick={logout}>Logout</a>
@@ -200,6 +202,7 @@ function App() {
     </div>
   </div>
 </nav>
+{passreqs?<ReqCanvas setCanvas={setPassreqs} data={JSON.parse(localStorage.getItem('reqs'))}/>:<></>}
 <DriverMap/>
 
 </>)

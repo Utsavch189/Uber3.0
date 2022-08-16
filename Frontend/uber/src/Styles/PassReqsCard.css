@@ -1,0 +1,32 @@
+.passes {
+    height: 90vh;
+    width: 72%;
+    position: absolute;
+    left: 25%;
+    overflow-y: scroll;
+}
+
+.passess {
+    height: 100%;
+    width: 72%;
+    position: absolute;
+    left: 17%;
+    overflow-y: scroll;
+}
+
+.passes::-webkit-scrollbar {
+    display: none;
+}
+
+.passess::-webkit-scrollbar {
+    display: none;
+}
+
+.btnbar {
+    height: 100%;
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}

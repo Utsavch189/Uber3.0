@@ -37,6 +37,10 @@
     display: none;
 }
 
+.tripss::-webkit-scrollbar {
+    display: none;
+}
+
 .tripDetails {
     height: 90vh;
     width: 43%;
