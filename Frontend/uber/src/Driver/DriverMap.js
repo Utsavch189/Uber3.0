@@ -53,10 +53,12 @@ export default function DriverMap() {
   })
   .then(res=>res.json())
   .then(data=>{
+    console.log(data)
       let a=JSON.parse(localStorage.getItem('reqs'))
+      if(a){
       if(data.length>a.length){
         setHasPass(true)
-      }
+      }}
       localStorage.setItem('reqs',JSON.stringify(data))
       
   })

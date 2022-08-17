@@ -10,8 +10,9 @@ const[data,setData]=useState(null);
 useEffect(()=>{
 
   const a=localStorage.getItem('data')
+  if(a){
   setData(JSON.parse(a)[1])
-
+  }
 },[])
 
 

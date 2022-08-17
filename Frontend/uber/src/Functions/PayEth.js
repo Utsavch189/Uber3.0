@@ -22,6 +22,7 @@ const pay = async(address, value) => {
         console.log(err)
     }
     localStorage.removeItem('payrunning')
+
 }
 
 export default pay;

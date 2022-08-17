@@ -153,7 +153,7 @@ async def book(request:Request):
     admin=str(req['admin'])
     date=str(req['date'])
     touched=0
-    _id=admin+driverac+froms+to
+    _id=admin+driverac+froms+to+date
     data={
         "_id":_id,"from":froms,"to":to,"driverac":driverac,"userac":accholder,"user":admin,"date":date,"booked":touched
     }
@@ -171,8 +171,9 @@ async def reqs(request:Request):
     data=a.get_booking(acc)
     passengers=[]
     for i in data:
-
+        
         passengers.append(i)
+    print(passengers)
     return passengers
 
 

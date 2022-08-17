@@ -8,13 +8,15 @@ import { useEffect } from 'react';
 import unbook from '../Functions/unbook';
 import { url } from '../Functions/baseurl';
 
+
+
 function Booking({setCanvas,data,cost,coordist,from,to}) {
 
   const [bookPending,setBookPending]=useState(false)
   const [accepted,setAccepted]=useState(false)
   const[payed,setPayed]=useState(false)
   const date=new Date();
-  
+
   const books=()=>{
     book(from,to,data['data']['acc'],date);
     setBookPending(true)
@@ -41,6 +43,7 @@ function Booking({setCanvas,data,cost,coordist,from,to}) {
   
                   'diverac': data['data']['acc'],
                   'accholder': localStorage.getItem('log'),
+                  'id':localStorage.getItem('name')+data['data']['acc']+from+to+date
   
               }),
           })
@@ -48,7 +51,7 @@ function Booking({setCanvas,data,cost,coordist,from,to}) {
           .then(data => {
             console.log(data.msg)
               if (data.msg==='pending'){
-                console.warn('Status:Pending')
+                alert('pending...')
               }
               else if(data.msg==='accepted'){
                 localStorage.removeItem('pendings')

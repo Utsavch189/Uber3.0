@@ -105,7 +105,41 @@ function App() {
     setISLogged(false);
   }
  
-  useEffect(()=>{log();},[])
+  useEffect(()=>{log();
+  
+    fetch(`${url}/sign`, {
+      method: 'POST',
+
+      headers: {
+          "X-CSRFToken": '{{csrf_token}}',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+
+          'account': localStorage.getItem('log'),
+          'name':localStorage.getItem('name')
+      }),
+  })
+  .then(res => res.json())
+  .then(data => {
+    setSignresult(data)
+    localStorage.setItem('data',JSON.stringify(data))
+    if(data[0][0]){
+    localStorage.setItem('name',data['0'][0]['name'])
+    localStorage.setItem('type',data['0'][1]['type'])
+    setAccholder(data['0'][0]['name'])
+    setType(data['0'][1]['type'])
+    }
+    else{
+      localStorage.setItem('name',data[0]['name'])
+      localStorage.setItem('type',data[1]['type'])
+      setAccholder(data[0]['name'])
+      setType(data[1]['type'])
+    }
+  })
+  
+  },[])
  
 
   return (
