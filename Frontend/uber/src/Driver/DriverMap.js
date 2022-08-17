@@ -147,13 +147,16 @@ export default function DriverMap() {
     const interval=setInterval(()=>{
       navigator.geolocation.getCurrentPosition(data => {
         //updateCoords(data.coords.latitude,data.coords.longitude)
-      const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
-        center: [startLon, startLat],
-        zoom: 9,
-      })
+   
+     
       if(localStorage.getItem('userFrom') && localStorage.getItem('userTo')){
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
+          center: [startLon, startLat],
+          zoom: 9,
+        })
+
       const marker3 = new mapboxgl.Marker({color:"black"})
       .setLngLat([data.coords.longitude, data.coords.latitude])
       .addTo(map);
@@ -195,11 +198,18 @@ export default function DriverMap() {
       
     });
   }
-  else{
-    const marker = new mapboxgl.Marker({color:"black"})
-      .setLngLat([data.coords.longitude, data.coords.latitude])
-      .addTo(map);
-  }
+else{
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3i2ho8tph',
+    center: [data.coords.longitude, data.coords.latitude],
+    zoom: 9,
+  })
+
+  const marker = new mapboxgl.Marker({color:"black"})
+  .setLngLat([data.coords.longitude, data.coords.latitude])
+  .addTo(map);
+}
           
         }, error => console.log(error), {
           enableHIghAccuracy: true
