@@ -128,6 +128,11 @@ export default function DriverMap() {
     }
   }
 
+  const Dispatch=()=>{
+    localStorage.removeItem('userFrom')
+    localStorage.removeItem('userTo')
+    setBridge(false)
+  }
 
   useEffect(()=>{
     allow();
@@ -215,7 +220,14 @@ export default function DriverMap() {
   return (<>
   {hasPass?<Success data="New Passenger!"/>:<></>}
 <div  id='map' className='map' data-aos="zoom-in" style={{"height":"100vh"}}>
- {bridges? <button style={{"position":"absolute","zIndex":"100","height":"30px","width":"50px","color":"white","border":"none"}} className='bg bg-dark my-4 mx-4' onClick={bridge}>Bridge</button>:<></>}
+ {bridges? 
+ 
+ <>
+ <button style={{"position":"absolute","zIndex":"100","height":"30px","width":"50px","color":"white","border":"none"}} className='bg bg-dark my-4 mx-4' onClick={bridge}>Bridge</button>
+ <button style={{"position":"absolute","zIndex":"100","height":"30px","width":"60px","color":"white","border":"none","marginLeft":"90px"}} className='bg bg-dark my-4 ' onClick={Dispatch}>Dispatch</button>
+ </>
+ 
+ :<></>}
 </div>
 
          </>
